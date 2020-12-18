@@ -1,0 +1,55 @@
+openapi: "3.0.0"
+
+info:
+  version: "1.0.0"
+  title: CT Multifile Example
+  description: This OpenAPI specification serves as an example on how to split & bundle the specification.
+  contact:
+    email: jam@ct.de
+  license:
+    name: MIT
+
+servers:
+  - url: .
+
+tags:
+  - name: rooms
+  - name: floors
+  - name: buildings
+
+paths:
+  ### ROOMS ###
+  /rooms:
+    $ref: "room.yml#/components/paths/RoomCollection"
+  /rooms/{roomId}:
+    $ref: "room.yml#/components/paths/Room"
+
+  ### BUILDINGS ###
+  /buildings:
+    $ref: "building.yml#/components/paths/BuildingCollection" 
+  /buildings/{buildingId}:
+    $ref: "building.yml#/components/paths/Building"
+    
+
+  ### FLOORS ###
+  /buildings/{buildingId}/floors:
+    $ref: "floor.yml#/components/paths/FloorCollection"
+  /buildings/{buildingId}/floors/{floorId}:
+    $ref: "floor.yml#/components/paths/Floor"
+
+components:
+  schemas:
+    RoomCollection:
+      $ref: "resources/room.yml#/components/schemas/RoomCollection"
+    Room:
+      $ref: "resources/room.yml#/components/schemas/Room"
+    FloorCollection:
+      $ref: "resources/floor.yml#/components/schemas/FloorCollection"
+    Floor:
+      $ref: "resources/floor.yml#/components/schemas/Floor"
+    BuildingCollection:
+      $ref: "resources/building.yml#/components/schemas/BuildingCollection"
+    Building:
+      $ref: "resources/building.yml#/components/schemas/Building"
+    Error:
+      $ref: "commons.yml#/components/schemas/Error"
