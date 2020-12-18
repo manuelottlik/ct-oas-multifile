@@ -1,0 +1,85 @@
+components:
+  responses:
+    BuildingCollection:
+      description: collection of buildings
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/BuildingCollection"
+    Building:
+      description: single building
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/BuildingDetailed"
+
+  requestBodies:
+    Building:
+      required: true
+      description: building to add
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Building"
+
+  parameters:
+    buildingId:
+      name: buildingId
+      in: path
+      required: true
+      description: the id of the building to retrieve
+      schema:
+        type: integer
+    name:
+      name: name
+      in: query
+      required: false
+      schema:
+        type: string
+    sort:
+      name: sort
+      in: query
+      schema:
+        type: string
+        enum: [id, name]
+
+  schemas:
+    BuildingCollection:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Building"
+      required:
+        - data
+    BuildingDetailed:
+      allOf:
+        - $ref: "#/components/schemas/Building"
+        - type: object
+          properties:
+            floors:
+              readOnly: true
+              allOf:
+                - $ref: "floor.yml#/components/schemas/FloorCollection"
+    Building:
+      allOf:
+        - $ref: "commons.yml#/components/schemas/DefaultObject"
+        - type: object
+          properties:
+            name:
+              type: string
+              description: name of the building
+              example: Main Building
+              minLength: 2
+              maxLength: 255
+            address:
+              type: string
+              description: address of the building
+              example: Example Street 1
+            description:
+              type: string
+              description: further information
+              example: has a nice entry
+          required:
+            - name

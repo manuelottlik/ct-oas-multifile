@@ -1,0 +1,265 @@
+openapi: "3.0.0"
+
+info:
+  version: "1.0.0"
+  title: CT Multifile Example
+  description: This OpenAPI specification serves as an example on how to split & bundle the specification.
+  contact:
+    email: jam@ct.de
+  license:
+    name: MIT
+
+servers:
+  - url: .
+
+tags:
+  - name: rooms
+  - name: floors
+  - name: buildings
+
+paths:
+  ### ROOMS ###
+  /rooms:
+    get:
+      description: get all rooms
+      operationId: getRooms
+      tags:
+        - rooms
+      parameters:
+        - $ref: "room.yml#/components/parameters/name"
+        - $ref: "room.yml#/components/parameters/number"
+        - $ref: "room.yml#/components/parameters/sort"
+      responses:
+        "200":
+          $ref: "room.yml#/components/responses/RoomCollection"
+        default:
+          $ref: "commons.yml#/components/responses/Error"
+    post:
+      description: create a room
+      operationId: createRoom
+      tags:
+        - rooms
+      requestBody:
+        $ref: "room.yml#/components/requestBodies/Room"
+      responses:
+        "201":
+          $ref: "room.yml#/components/responses/Room"
+        "422":
+          $ref: "commons.yml#/components/responses/Error"
+        default:
+          $ref: "commons.yml#/components/responses/Error"
+  /rooms/{roomId}:
+    parameters:
+      - $ref: "room.yml#/components/parameters/roomId"
+    get:
+      description: info for a specific room
+      operationId: getRoomById
+      tags:
+        - rooms
+      responses:
+        "200":
+          $ref: "room.yml#/components/responses/Room"
+        "404":
+          $ref: "commons.yml#/components/responses/Error"
+        default:
+          $ref: "commons.yml#/components/responses/Error"
+    put:
+      description: update a specific room
+      operationId: updateRoom
+      tags:
+        - rooms
+      requestBody:
+        $ref: "room.yml#/components/requestBodies/Room"
+      responses:
+        "201":
+          $ref: "room.yml#/components/responses/Room"
+        "404":
+          $ref: "commons.yml#/components/responses/Error"
+        "422":
+          $ref: "commons.yml#/components/responses/Error"
+        default:
+          $ref: "commons.yml#/components/responses/Error"
+    delete:
+      description: delete a room
+      operationId: deleteRoom
+      tags:
+        - rooms
+      responses:
+        "204":
+          $ref: "commons.yml#/components/responses/DeletedObject"
+        "404":
+          $ref: "commons.yml#/components/responses/Error"
+        default:
+          $ref: "commons.yml#/components/responses/Error"
+
+  ### BUILDINGS ###
+  /buildings:
+    get:
+      description: get all buildings
+      operationId: getBuildings
+      tags:
+        - buildings
+      parameters:
+        - $ref: "building.yml#/components/parameters/name"
+        - $ref: "building.yml#/components/parameters/sort"
+      responses:
+        "200":
+          $ref: "building.yml#/components/responses/BuildingCollection"
+        default:
+          $ref: "commons.yml#/components/responses/Error"
+    post:
+      description: create a building
+      operationId: createBuilding
+      tags:
+        - buildings
+      requestBody:
+        $ref: "building.yml#/components/requestBodies/Building"
+      responses:
+        "201":
+          $ref: "building.yml#/components/responses/Building"
+        "422":
+          $ref: "commons.yml#/components/responses/Error"
+        default:
+          $ref: "commons.yml#/components/responses/Error"
+  /buildings/{buildingId}:
+    parameters:
+      - $ref: "building.yml#/components/parameters/buildingId"
+    get:
+      description: info for a specific building
+      operationId: getBuildingById
+      tags:
+        - buildings
+      responses:
+        "200":
+          $ref: "building.yml#/components/responses/Building"
+        "404":
+          $ref: "commons.yml#/components/responses/Error"
+        default:
+          $ref: "commons.yml#/components/responses/Error"
+    put:
+      description: update a specific building
+      operationId: updateBuilding
+      tags:
+        - buildings
+      requestBody:
+        $ref: "building.yml#/components/requestBodies/Building"
+      responses:
+        "201":
+          $ref: "building.yml#/components/responses/Building"
+        "404":
+          $ref: "commons.yml#/components/responses/Error"
+        "422":
+          $ref: "commons.yml#/components/responses/Error"
+        default:
+          $ref: "commons.yml#/components/responses/Error"
+    delete:
+      description: delete a building
+      operationId: deleteBuilding
+      tags:
+        - buildings
+      responses:
+        "204":
+          $ref: "commons.yml#/components/responses/DeletedObject"
+        "404":
+          $ref: "commons.yml#/components/responses/Error"
+        default:
+          $ref: "commons.yml#/components/responses/Error"
+
+  ### FLOORS ###
+  /buildings/{buildingId}/floors:
+    parameters:
+      - $ref: "building.yml#/components/parameters/buildingId"
+    get:
+      description: get all floors
+      operationId: getFloors
+      tags:
+        - floors
+      parameters:
+        - $ref: "floor.yml#/components/parameters/name"
+        - $ref: "floor.yml#/components/parameters/buildingId"
+        - $ref: "floor.yml#/components/parameters/sort"
+      responses:
+        "200":
+          $ref: "floor.yml#/components/responses/FloorCollection"
+        "404":
+          $ref: "commons.yml#/components/responses/Error"
+        default:
+          $ref: "commons.yml#/components/responses/Error"
+    post:
+      description: create a floor
+      operationId: createFloor
+      tags:
+        - floors
+      requestBody:
+        $ref: "floor.yml#/components/requestBodies/Floor"
+      responses:
+        "201":
+          $ref: "floor.yml#/components/responses/Floor"
+        "404":
+          $ref: "commons.yml#/components/responses/Error"
+        "422":
+          $ref: "commons.yml#/components/responses/Error"
+        default:
+          $ref: "commons.yml#/components/responses/Error"
+  /buildings/{buildingId}/floors/{floorId}:
+    parameters:
+      - $ref: "building.yml#/components/parameters/buildingId"
+      - $ref: "floor.yml#/components/parameters/floorId"
+    get:
+      description: info for a specific floor
+      operationId: getFloorById
+      tags:
+        - floors
+      responses:
+        "200":
+          $ref: "floor.yml#/components/responses/Floor"
+        "404":
+          $ref: "commons.yml#/components/responses/Error"
+        default:
+          $ref: "commons.yml#/components/responses/Error"
+    put:
+      description: update a specific floor
+      operationId: updateFloor
+      tags:
+        - floors
+      requestBody:
+        $ref: "floor.yml#/components/requestBodies/Floor"
+      responses:
+        "201":
+          $ref: "floor.yml#/components/responses/Floor"
+        "404":
+          $ref: "commons.yml#/components/responses/Error"
+        "422":
+          $ref: "commons.yml#/components/responses/Error"
+        default:
+          $ref: "commons.yml#/components/responses/Error"
+    delete:
+      description: delete a floor
+      operationId: deleteFloor
+      tags:
+        - floors
+      responses:
+        "204":
+          $ref: "commons.yml#/components/responses/DeletedObject"
+        "404":
+          $ref: "commons.yml#/components/responses/Error"
+        default:
+          $ref: "commons.yml#/components/responses/Error"
+
+
+components:
+  schemas:
+    RoomCollection:
+      $ref: "resources/room.yml#/components/schemas/RoomCollection"
+    Room:
+      $ref: "resources/room.yml#/components/schemas/Room"
+    FloorCollection:
+      $ref: "resources/floor.yml#/components/schemas/FloorCollection"
+    Floor:
+      $ref: "resources/floor.yml#/components/schemas/Floor"
+    BuildingCollection:
+      $ref: "resources/building.yml#/components/schemas/BuildingCollection"
+    Building:
+      $ref: "resources/building.yml#/components/schemas/Building"
+    Error:
+      $ref: "commons.yml#/components/schemas/Error"

@@ -1,0 +1,111 @@
+components:
+  responses:
+    RoomCollection:
+      description: collection of rooms
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/RoomCollection"
+    Room:
+      description: single room
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/RoomDetailed"
+
+  requestBodies:
+    Room:
+      required: true
+      description: room to add
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Room"
+
+  parameters:
+    roomId:
+      name: roomId
+      in: path
+      required: true
+      description: the id of the room to retrieve
+      schema:
+        type: integer
+    name:
+      name: name
+      in: query
+      required: false
+      schema:
+        type: string
+    number:
+      name: number
+      in: query
+      required: false
+      schema:
+        type: string
+    sort:
+      name: sort
+      in: query
+      schema:
+        type: string
+        enum: [floorId, id, name]
+
+  schemas:
+    RoomCollection:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Room"
+      required:
+        - data
+    RoomDetailed:
+      allOf:
+        - $ref: "#/components/schemas/Room"
+        - type: object
+          properties:
+            floors:
+              readOnly: true
+              allOf:
+                - $ref: "floor.yml#/components/schemas/FloorCollection"
+      required:
+        - floors
+
+    Room:
+      allOf:
+        - $ref: "commons.yml#/components/schemas/DefaultObject"
+        - type: object
+          properties:
+            number:
+              type: string
+              description: room number
+              example: "A 1.02"
+              minLength: 0
+              maxLength: 20
+            name:
+              type: string
+              description: name of the room
+              example: Borkum
+              minLength: 2
+              maxLength: 255
+            bookable:
+              type: boolean
+              description: wether this room can be booked or not
+              example: true
+            capacity:
+              type: integer
+              description: number of people fitting in that room
+              example: 30
+              minimum: 0
+              maximum: 1000
+            floorId:
+              type: integer
+              writeOnly: true
+              description: id of the floor this room is in
+              example: 1
+
+          required:
+            - number
+            - bookable
+            - capacity
+            - floorId
