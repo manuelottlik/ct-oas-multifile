@@ -2,7 +2,7 @@ name: Bundle OpenAPI Specification
 on: [push]
 
 jobs:
-  api-linting:
+  api-bundling:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
