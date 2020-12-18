@@ -9,7 +9,6 @@ jobs:
         uses: actions/checkout@v2
     
       - name: Bundle OpenAPI specification
-        #runs-on: node:latest
         env:
           INPUT_PATH: 03-multiple-files-with-paths/openapi.yml
           OUTPUT_PATH: 03-multiple-files-with-paths/bundled-openapi.yml
