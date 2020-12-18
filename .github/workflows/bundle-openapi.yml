@@ -18,12 +18,13 @@ jobs:
           # makes the script existing once an error occours
           set -e
 
+          # check if input file exists
           if [ ! -f "$INPUT_PATH" ]; then
               echo "::error::$INPUT_PATH does not exist!"
               exit 1
           fi
 
-          # bundle
+          # bundle specs with / wihout fully dereferencing
           if [ "$DEREFERENCE" = true ] ; then
               npx -p @apidevtools/swagger-cli swagger-cli bundle -r ${INPUT_PATH} -o ${OUTPUT_PATH} -t ${OUTPUT_FILETYPE} 
           else
