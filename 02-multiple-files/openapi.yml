@@ -250,16 +250,16 @@ paths:
 components:
   schemas:
     RoomCollection:
-      $ref: "resources/room.yml#/components/schemas/RoomCollection"
+      $ref: "room.yml#/components/schemas/RoomCollection"
     Room:
-      $ref: "resources/room.yml#/components/schemas/Room"
+      $ref: "room.yml#/components/schemas/Room"
     FloorCollection:
-      $ref: "resources/floor.yml#/components/schemas/FloorCollection"
+      $ref: "floor.yml#/components/schemas/FloorCollection"
     Floor:
-      $ref: "resources/floor.yml#/components/schemas/Floor"
+      $ref: "floor.yml#/components/schemas/Floor"
     BuildingCollection:
-      $ref: "resources/building.yml#/components/schemas/BuildingCollection"
+      $ref: "building.yml#/components/schemas/BuildingCollection"
     Building:
-      $ref: "resources/building.yml#/components/schemas/Building"
+      $ref: "building.yml#/components/schemas/Building"
     Error:
       $ref: "commons.yml#/components/schemas/Error"

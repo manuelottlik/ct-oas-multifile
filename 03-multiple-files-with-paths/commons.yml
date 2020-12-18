@@ -9,31 +9,33 @@ components:
           schema:
             $ref: "#/components/schemas/Error"
     
-    schemas:
-      DefaultObject:
-        type: object
-        description: default object structure
-        properties:
-          id:
-            type: integer
-            readOnly: true
-            description: id of the object
-            example: 1
-          createdAt:
-            type: date-time
-            readOnly: true
-            description: moment where the object was created
-            example: "2020-04-12T23:20:50.52Z"
-          updatedAt:
-            type: date-time
-            readOnly: true
-            description: moment where the object was last updated
-            example: "2020-09-16T23:20:50.52Z"
-      Error:
-        type: object
-        properties:
-          code:
-            type: integer
-            format: int32
-          message:
-            type: string
+  schemas:
+    DefaultObject:
+      type: object
+      description: default object structure
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          description: id of the object
+          example: 1
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+          description: moment where the object was created
+          example: "2020-04-12T23:20:50.52Z"
+        updatedAt:
+          type: string
+          format: date-time
+          readOnly: true
+          description: moment where the object was last updated
+          example: "2020-09-16T23:20:50.52Z"
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string

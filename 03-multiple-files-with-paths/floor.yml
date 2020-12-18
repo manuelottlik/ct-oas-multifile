@@ -151,7 +151,6 @@ components:
                 - $ref: "building.yml#/components/schemas/Building"
           required:
             - building
-
     Floor:
       allOf:
         - $ref: "commons.yml#/components/schemas/DefaultObject"

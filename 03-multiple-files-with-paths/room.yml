@@ -7,12 +7,12 @@ components:
         tags:
           - rooms
         parameters:
-          - $ref: "#/components/parameters/name"
-          - $ref: "#/components/parameters/number"
-          - $ref: "#/components/parameters/sort"
+          - $ref: "room.yml#/components/parameters/name"
+          - $ref: "room.yml#/components/parameters/number"
+          - $ref: "room.yml#/components/parameters/sort"
         responses:
           "200":
-            $ref: "#/components/responses/RoomCollection"
+            $ref: "room.yml#/components/responses/RoomCollection"
           default:
             $ref: "commons.yml#/components/responses/Error"
       post:
@@ -21,17 +21,17 @@ components:
         tags:
           - rooms
         requestBody:
-          $ref: "#/components/requestBodies/Room"
+          $ref: "room.yml#/components/requestBodies/Room"
         responses:
           "201":
-            $ref: "#/components/responses/Room"
+            $ref: "room.yml#/components/responses/Room"
           "422":
             $ref: "commons.yml#/components/responses/Error"
           default:
             $ref: "commons.yml#/components/responses/Error"
     Room:
       parameters:
-      - $ref: "#/components/parameters/roomId"
+      - $ref: "room.yml#/components/parameters/roomId"
       get:
         description: info for a specific room
         operationId: getRoomById
@@ -39,7 +39,7 @@ components:
           - rooms
         responses:
           "200":
-            $ref: "#/components/responses/Room"
+            $ref: "room.yml#/components/responses/Room"
           "404":
             $ref: "commons.yml#/components/responses/Error"
           default:
@@ -50,10 +50,10 @@ components:
         tags:
           - rooms
         requestBody:
-          $ref: "#/components/requestBodies/Room"
+          $ref: "room.yml#/components/requestBodies/Room"
         responses:
           "201":
-            $ref: "#/components/responses/Room"
+            $ref: "room.yml#/components/responses/Room"
           "404":
             $ref: "commons.yml#/components/responses/Error"
           "422":
@@ -144,7 +144,6 @@ components:
                 - $ref: "floor.yml#/components/schemas/FloorCollection"
       required:
         - floors
-
     Room:
       allOf:
         - $ref: "commons.yml#/components/schemas/DefaultObject"

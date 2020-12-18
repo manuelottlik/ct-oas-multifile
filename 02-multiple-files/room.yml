@@ -70,7 +70,6 @@ components:
                 - $ref: "floor.yml#/components/schemas/FloorCollection"
       required:
         - floors
-
     Room:
       allOf:
         - $ref: "commons.yml#/components/schemas/DefaultObject"
