@@ -1,0 +1,570 @@
+openapi: "3.0.0"
+
+info:
+  version: "1.0.0"
+  title: CT Multifile Example
+  description: This OpenAPI specification serves as an example on how to split & bundle the specification.
+  contact:
+    email: jam@ct.de
+  license:
+    name: MIT
+
+servers:
+  - url: .
+
+tags:
+  - name: rooms
+  - name: floors
+  - name: buildings
+
+paths:
+  ### ROOMS ###
+  /rooms:
+    get:
+      description: get all rooms
+      operationId: getRooms
+      tags:
+        - rooms
+      parameters:
+        - $ref: "#/components/parameters/roomName"
+        - $ref: "#/components/parameters/roomNumber"
+        - $ref: "#/components/parameters/roomSort"
+      responses:
+        "200":
+          $ref: "#/components/responses/RoomCollection"
+        default:
+          $ref: "#/components/responses/Error"
+    post:
+      description: create a room
+      operationId: createRoom
+      tags:
+        - rooms
+      requestBody:
+        $ref: "#/components/requestBodies/Room"
+      responses:
+        "201":
+          $ref: "#/components/responses/Room"
+        "422":
+          $ref: "#/components/responses/Error"
+        default:
+          $ref: "#/components/responses/Error"
+  /rooms/{roomId}:
+    parameters:
+      - $ref: "#/components/parameters/roomId"
+    get:
+      description: info for a specific room
+      operationId: getRoomById
+      tags:
+        - rooms
+      responses:
+        "200":
+          $ref: "#/components/responses/Room"
+        "404":
+          $ref: "#/components/responses/Error"
+        default:
+          $ref: "#/components/responses/Error"
+    put:
+      description: update a specific room
+      operationId: updateRoom
+      tags:
+        - rooms
+      requestBody:
+        $ref: "#/components/requestBodies/Room"
+      responses:
+        "201":
+          $ref: "#/components/responses/Room"
+        "404":
+          $ref: "#/components/responses/Error"
+        "422":
+          $ref: "#/components/responses/Error"
+        default:
+          $ref: "#/components/responses/Error"
+    delete:
+      description: delete a room
+      operationId: deleteRoom
+      tags:
+        - rooms
+      responses:
+        "204":
+          $ref: "#/components/responses/DeletedObject"
+        "404":
+          $ref: "#/components/responses/Error"
+        default:
+          $ref: "#/components/responses/Error"
+
+  ### BUILDINGS ###
+  /buildings:
+    get:
+      description: get all buildings
+      operationId: getBuildings
+      tags:
+        - buildings
+      parameters:
+        - $ref: "#/components/parameters/buildingName"
+        - $ref: "#/components/parameters/buildingSort"
+      responses:
+        "200":
+          $ref: "#/components/responses/BuildingCollection"
+        default:
+          $ref: "#/components/responses/Error"
+    post:
+      description: create a building
+      operationId: createBuilding
+      tags:
+        - buildings
+      requestBody:
+        $ref: "#/components/requestBodies/Building"
+      responses:
+        "201":
+          $ref: "#/components/responses/Building"
+        "422":
+          $ref: "#/components/responses/Error"
+        default:
+          $ref: "#/components/responses/Error"
+  /buildings/{buildingId}:
+    parameters:
+      - $ref: "#/components/parameters/buildingId"
+    get:
+      description: info for a specific building
+      operationId: getBuildingById
+      tags:
+        - buildings
+      responses:
+        "200":
+          $ref: "#/components/responses/Building"
+        "404":
+          $ref: "#/components/responses/Error"
+        default:
+          $ref: "#/components/responses/Error"
+    put:
+      description: update a specific building
+      operationId: updateBuilding
+      tags:
+        - buildings
+      requestBody:
+        $ref: "#/components/requestBodies/Building"
+      responses:
+        "201":
+          $ref: "#/components/responses/Building"
+        "404":
+          $ref: "#/components/responses/Error"
+        "422":
+          $ref: "#/components/responses/Error"
+        default:
+          $ref: "#/components/responses/Error"
+    delete:
+      description: delete a building
+      operationId: deleteBuilding
+      tags:
+        - buildings
+      responses:
+        "204":
+          $ref: "#/components/responses/DeletedObject"
+        "404":
+          $ref: "#/components/responses/Error"
+        default:
+          $ref: "#/components/responses/Error"
+
+  ### FLOORS ###
+  /buildings/{buildingId}/floors:
+    parameters:
+      - $ref: "#/components/parameters/buildingId"
+    get:
+      description: get all floors
+      operationId: getFloors
+      tags:
+        - floors
+      parameters:
+        - $ref: "#/components/parameters/floorName"
+        - $ref: "#/components/parameters/floorBuildingId"
+        - $ref: "#/components/parameters/floorSort"
+      responses:
+        "200":
+          $ref: "#/components/responses/FloorCollection"
+        "404":
+          $ref: "#/components/responses/Error"
+        default:
+          $ref: "#/components/responses/Error"
+    post:
+      description: create a floor
+      operationId: createFloor
+      tags:
+        - floors
+      requestBody:
+        $ref: "#/components/requestBodies/Floor"
+      responses:
+        "201":
+          $ref: "#/components/responses/Floor"
+        "404":
+          $ref: "#/components/responses/Error"
+        "422":
+          $ref: "#/components/responses/Error"
+        default:
+          $ref: "#/components/responses/Error"
+  /buildings/{buildingId}/floors/{floorId}:
+    parameters:
+      - $ref: "#/components/parameters/buildingId"
+      - $ref: "#/components/parameters/floorId"
+    get:
+      description: info for a specific floor
+      operationId: getFloorById
+      tags:
+        - floors
+      responses:
+        "200":
+          $ref: "#/components/responses/Floor"
+        "404":
+          $ref: "#/components/responses/Error"
+        default:
+          $ref: "#/components/responses/Error"
+    put:
+      description: update a specific floor
+      operationId: updateFloor
+      tags:
+        - floors
+      requestBody:
+        $ref: "#/components/requestBodies/Floor"
+      responses:
+        "201":
+          $ref: "#/components/responses/Floor"
+        "404":
+          $ref: "#/components/responses/Error"
+        "422":
+          $ref: "#/components/responses/Error"
+        default:
+          $ref: "#/components/responses/Error"
+    delete:
+      description: delete a floor
+      operationId: deleteFloor
+      tags:
+        - floors
+      responses:
+        "204":
+          $ref: "#/components/responses/DeletedObject"
+        "404":
+          $ref: "#/components/responses/Error"
+        default:
+          $ref: "#/components/responses/Error"
+
+
+components:
+  responses:
+    DeletedObject:
+      description: object was successfully deleted
+    Error:
+      description: general error occurred
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    RoomCollection:
+      description: collection of rooms
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/RoomCollection"
+    Room:
+      description: single room
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/RoomDetailed"
+    BuildingCollection:
+      description: collection of buildings
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/BuildingCollection"
+    Building:
+      description: single building
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/BuildingDetailed"
+    FloorCollection:
+      description: collection of floors
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/FloorCollection"
+    Floor:
+      description: single floor
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/FloorDetailed"
+  
+  requestBodies:
+    Room:
+      required: true
+      description: room to add
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Room"
+    Building:
+      required: true
+      description: building to add
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Building"
+    Floor:
+      required: true
+      description: floor to add
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Floor"
+    
+  parameters:
+    roomId:
+      name: roomId
+      in: path
+      required: true
+      description: the id of the room to retrieve
+      schema:
+        type: integer
+    roomName:
+      name: name
+      in: query
+      required: false
+      schema:
+        type: string
+    roomNumber:
+      name: number
+      in: query
+      required: false
+      schema:
+        type: string
+    roomSort:
+      name: sort
+      in: query
+      schema:
+        type: string
+        enum: [floorId, id, name]
+    buildingId:
+      name: buildingId
+      in: path
+      required: true
+      description: the id of the building to retrieve
+      schema:
+        type: integer
+    buildingName:
+      name: name
+      in: query
+      required: false
+      schema:
+        type: string
+    buildingSort:
+      name: sort
+      in: query
+      schema:
+        type: string
+        enum: [id, name]
+    floorId:
+      name: floorId
+      in: path
+      required: true
+      description: the id of the floor to retrieve
+      schema:
+        type: integer
+    floorName:
+      name: name
+      in: query
+      required: false
+      schema:
+        type: string
+    floorBuildingId:
+      name: buildingId
+      in: query
+      required: false
+      schema:
+        type: integer
+    floorSort:
+      name: sort
+      in: query
+      schema:
+        type: string
+        enum: [id, name, buildingId]
+  
+  schemas:
+    DefaultObject:
+      type: object
+      description: default object structure
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          description: id of the object
+          example: 1
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+          description: moment where the object was created
+          example: "2020-04-12T23:20:50.52Z"
+        updatedAt:
+          type: string
+          format: date-time
+          readOnly: true
+          description: moment where the object was last updated
+          example: "2020-09-16T23:20:50.52Z"
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    RoomCollection:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Room"
+      required:
+        - data
+    RoomDetailed:
+      allOf:
+        - $ref: "#/components/schemas/Room"
+        - type: object
+          properties:
+            floors:
+              readOnly: true
+              allOf:
+                - $ref: "#/components/schemas/FloorCollection"
+      required:
+        - floors
+
+    Room:
+      allOf:
+        - $ref: "#/components/schemas/DefaultObject"
+        - type: object
+          properties:
+            number:
+              type: string
+              description: room number
+              example: "A 1.02"
+              minLength: 0
+              maxLength: 20
+            name:
+              type: string
+              description: name of the room
+              example: Borkum
+              minLength: 2
+              maxLength: 255
+            bookable:
+              type: boolean
+              description: wether this room can be booked or not
+              example: true
+            capacity:
+              type: integer
+              description: number of people fitting in that room
+              example: 30
+              minimum: 0
+              maximum: 1000
+            floorId:
+              type: integer
+              writeOnly: true
+              description: id of the floor this room is in
+              example: 1
+
+          required:
+            - number
+            - bookable
+            - capacity
+            - floorId
+    BuildingCollection:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Building"
+      required:
+        - data
+    BuildingDetailed:
+      allOf:
+        - $ref: "#/components/schemas/Building"
+        - type: object
+          properties:
+            floors:
+              readOnly: true
+              allOf:
+                - $ref: "#/components/schemas/FloorCollection"
+    Building:
+      allOf:
+        - $ref: "#/components/schemas/DefaultObject"
+        - type: object
+          properties:
+            name:
+              type: string
+              description: name of the building
+              example: Main Building
+              minLength: 2
+              maxLength: 255
+            address:
+              type: string
+              description: address of the building
+              example: Example Street 1
+            description:
+              type: string
+              description: further information
+              example: has a nice entry
+          required:
+            - name
+    FloorCollection:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Floor"
+      required:
+        - data
+    FloorDetailed:
+      allOf:
+        - $ref: "#/components/schemas/Floor"
+        - type: object
+          properties:
+            building:
+              readOnly: true
+              allOf:
+                - $ref: "#/components/schemas/Building"
+          required:
+            - building
+
+    Floor:
+      allOf:
+        - $ref: "#/components/schemas/DefaultObject"
+        - type: object
+          properties:
+            name:
+              type: string
+              description: name of the floor
+              example: base level
+              minLength: 2
+              maxLength: 255
+            level:
+              type: number
+              description: level this floor is in
+              example: 0
+              minimum: -100
+              maximum: 100
+            buildingId:
+              type: integer
+              writeOnly: true
+              description: id of the building this floor is in
+              example: 1
+            description:
+              type: string
+              description: further information
+              example: has a big TV
+          required:
+            - name
+            - level
+            - buildingId
+
