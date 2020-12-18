@@ -257,6 +257,8 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/Error"
+
+    ### ROOMS ###
     RoomCollection:
       description: collection of rooms
       content:
@@ -269,6 +271,8 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/RoomDetailed"
+    
+    ### BUILDINGS ###
     BuildingCollection:
       description: collection of buildings
       content:
@@ -281,6 +285,8 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/BuildingDetailed"
+
+    ### FLOORS ###
     FloorCollection:
       description: collection of floors
       content:
@@ -318,6 +324,7 @@ components:
             $ref: "#/components/schemas/Floor"
     
   parameters:
+    ### ROOMS ###
     roomId:
       name: roomId
       in: path
@@ -343,6 +350,8 @@ components:
       schema:
         type: string
         enum: [floorId, id, name]
+    
+    ### BUILDINGS ###
     buildingId:
       name: buildingId
       in: path
@@ -362,6 +371,8 @@ components:
       schema:
         type: string
         enum: [id, name]
+    
+    ### FLOORS ###
     floorId:
       name: floorId
       in: path
@@ -418,6 +429,8 @@ components:
           format: int32
         message:
           type: string
+    
+    ### ROOMS ###
     RoomCollection:
       type: object
       properties:
@@ -438,7 +451,6 @@ components:
                 - $ref: "#/components/schemas/FloorCollection"
       required:
         - floors
-
     Room:
       allOf:
         - $ref: "#/components/schemas/DefaultObject"
@@ -471,12 +483,13 @@ components:
               writeOnly: true
               description: id of the floor this room is in
               example: 1
-
           required:
             - number
             - bookable
             - capacity
             - floorId
+    
+    ### BUILDINGS ###
     BuildingCollection:
       type: object
       properties:
@@ -516,6 +529,8 @@ components:
               example: has a nice entry
           required:
             - name
+    
+    ### FLOORS ###
     FloorCollection:
       type: object
       properties:
@@ -536,7 +551,6 @@ components:
                 - $ref: "#/components/schemas/Building"
           required:
             - building
-
     Floor:
       allOf:
         - $ref: "#/components/schemas/DefaultObject"
@@ -567,4 +581,3 @@ components:
             - name
             - level
             - buildingId
-
