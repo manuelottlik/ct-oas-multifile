@@ -14,8 +14,8 @@ servers:
 
 tags:
   - name: rooms
-  - name: floors
   - name: buildings
+  - name: floors
 
 paths:
   ### ROOMS ###
