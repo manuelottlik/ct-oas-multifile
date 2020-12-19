@@ -25,7 +25,7 @@ jobs:
           fi
 
           # check filetype
-          if [ "$INPUT_OUTPUT_FILETYPE" != "yaml" ] && [ "$INPUT_OUTPUT_FILETYPE" != "json" ] ; then
+          if [ "$INPUT_OUTPUT_FILETYPE" != "yaml" ] || [ "$INPUT_OUTPUT_FILETYPE" != "json" ] ; then
               echo "::error::FILETYPE must be either 'yaml' or 'json'!"
               exit 1
           fi
