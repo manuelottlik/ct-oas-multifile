@@ -24,11 +24,17 @@ jobs:
               exit 1
           fi
 
+          # check filetype
+          if [ "$INPUT_OUTPUT_FILETYPE" != "yaml" ] && [ "$INPUT_OUTPUT_FILETYPE" != "json" ] ; then
+              echo "::error::FILETYPE must be either 'yaml' or 'json'!"
+              exit 1
+          fi
+
           # bundle specs with / wihout fully dereferencing
           if [ "$DEREFERENCE" = true ] ; then
-              npx -p @apidevtools/swagger-cli swagger-cli bundle -r ${INPUT_PATH} -o ${OUTPUT_PATH} -t ${OUTPUT_FILETYPE} 
+              npx --package @apidevtools/swagger-cli swagger-cli bundle --dereferenced ${INPUT_PATH} --outfile ${OUTPUT_PATH} --type ${OUTPUT_FILETYPE} 
           else
-              npx -p @apidevtools/swagger-cli swagger-cli bundle ${INPUT_PATH} -o ${OUTPUT_PATH} -t ${OUTPUT_FILETYPE} 
+              npx --package @apidevtools/swagger-cli swagger-cli bundle ${INPUT_PATH} --outfile ${OUTPUT_PATH} --type ${OUTPUT_FILETYPE} 
           fi 
       
       - name: Upload the bundled OpenAPI specification
