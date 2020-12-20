@@ -13,7 +13,7 @@ jobs:
           INPUT_PATH: 02-multiple-files/openapi.yml
           OUTPUT_PATH: 02-multiple-files/bundled-openapi.yml
           OUTPUT_FILETYPE: yaml
-          DEREFERENCE: false
+          DEREFERENCE: true
         run: |
           # makes the script existing once an error occours
           set -e
