@@ -10,8 +10,8 @@ jobs:
     
       - name: Bundle OpenAPI specification
         env:
-          INPUT_PATH: 03-multiple-files-with-paths/openapi.yml
-          OUTPUT_PATH: 03-multiple-files-with-paths/bundled-openapi.yml
+          INPUT_PATH: 02-multiple-files/openapi.yml
+          OUTPUT_PATH: 02-multiple-files/bundled-openapi.yml
           OUTPUT_FILETYPE: yaml
           DEREFERENCE: false
         run: |
@@ -41,4 +41,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: bundled-openapi
-          path: 03-multiple-files-with-paths
+          path: 02-multiple-files
