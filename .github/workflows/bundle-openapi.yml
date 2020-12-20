@@ -13,7 +13,7 @@ jobs:
           INPUT_PATH: 02-multiple-files/openapi.yml
           OUTPUT_PATH: 02-multiple-files/bundled-openapi.yml
           OUTPUT_FILETYPE: yaml
-          DEREFERENCE: true
+          DEREFERENCE: false
         run: |
           # makes the script existing once an error occours
           set -e
@@ -32,7 +32,7 @@ jobs:
 
           # bundle specs with / wihout fully dereferencing
           if [ "$DEREFERENCE" = true ] ; then
-              npx --package @apidevtools/swagger-cli swagger-cli bundle --dereferenced ${INPUT_PATH} --outfile ${OUTPUT_PATH} --type ${OUTPUT_FILETYPE} 
+              npx --package @apidevtools/swagger-cli swagger-cli bundle --dereference ${INPUT_PATH} --outfile ${OUTPUT_PATH} --type ${OUTPUT_FILETYPE} 
           else
               npx --package @apidevtools/swagger-cli swagger-cli bundle ${INPUT_PATH} --outfile ${OUTPUT_PATH} --type ${OUTPUT_FILETYPE} 
           fi 
