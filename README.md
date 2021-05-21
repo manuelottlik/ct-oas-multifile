@@ -1,3 +1,3 @@
 # ct-oas-multifile
 
-Beispielprojekt zum Artikel "XYZ" aus c't 2021, Heft X.
+Beispielprojekt zum Artikel "Dokumentationsverpackung" aus c't 2021, Heft 12.
